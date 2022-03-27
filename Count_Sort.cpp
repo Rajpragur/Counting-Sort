@@ -1,6 +1,8 @@
-int* Count_Sort(vector<int> array,int length){
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> Count_Sort(vector<int> array,int length){
     int zeroes,one,two,three,fours,fives,sixes,sevens,eights,nines;
-    for(int i = 0 ; i <length ; i++){
+    for(int i = 0 ; i < length ; i++){
         switch(array[i]) {
             case 1:
                 one++;
@@ -42,12 +44,27 @@ int* Count_Sort(vector<int> array,int length){
             array_final[j] = array_final[j-1]+array_final[j];
         }
     }
-    int answer[length];
-    for(int k = 0 ;k<length ; k++){
+    vector<int> answer;
+    for(int k = 0 ; k<length ; k++){
         int index = (array_final[array[k]])-1;
         int val = array_final[array[k]];
-        answer[index] = array[k];
+        auto it = answer.begin()+index;
+        answer.insert(it,array[k]);
         array_final[array[k]] = val-1;
+        array_final.erase(it);
     }
     return answer;
+}
+int main() {
+	vector<int> array;
+	array.push_back(2);
+	array.push_back(5);
+	array.push_back(8);
+	array.push_back(7);
+	array.push_back(12);
+	vector<int> arr = Count_Sort(array,5);
+	for (int i = 0; i < 5; i++) {
+	    cout<<arr[i]<<"\t";
+	}
+	return 0;
 }
